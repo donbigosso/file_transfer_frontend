@@ -3,6 +3,12 @@ body {
     min-height: 100vh;
 }
 
+/* stop shrinking width under 470 px */
+.container, .container-fluid, .header, .navbar {
+    min-width: 470px; /* Prevents shrinking below this width */
+}
+
+
 .navbar {
     background: linear-gradient(to right, #0d6efd, #0a58ca) !important;
 }
