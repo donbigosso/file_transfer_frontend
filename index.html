@@ -284,13 +284,32 @@
         Test Area
       </h2>
       <button class="btn btn-primary" id="testBtn">Add row to file table</button>
-      <button class="btn btn-primary" id="testBtn2">Delete row 5</button>
+      <button class="btn btn-primary" id="testBtn2">Show modal</button>
     </div>
 
-    <!-- Bootstrap Icons (for person icon) -->
+    <!-- My Modal -->
+<div class="modal show d-block" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="false" style="background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Modal Label</h5>
+        <button type="button" id="modal-close-btn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Modal text
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modal-btn-negative">Negative button</button>
+        <button type="button" class="btn btn-danger" id="modal-btn-positive">Positive button</button>
+      </div>
+    </div>
+  </div>
+</div>
    
     <!-- Bootstrap JS (optional, for future interactivity) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="./app.js"></script>  
+     
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./app.js"></script> 
 </html>
