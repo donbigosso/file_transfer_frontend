@@ -28,3 +28,20 @@ export function hideModal(modalID) {
   modal.style.backgroundColor = '';
   document.body.style.overflow = '';
 }
+
+export function scroolToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+export function scrollToDown() {
+  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
+
+export function changeButtonText(button, text) {
+  if (!(button instanceof HTMLElement)) {
+    console.warn("changeButtonText(): invalid button element");
+    return;
+  }
+
+  button.textContent = text;
+}

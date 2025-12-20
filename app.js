@@ -1,8 +1,9 @@
 import { getSetting } from "./functions/CoreFunctions.js";
 import { onClick } from "./functions/EventFunctions.js";
 import { showLoggedOnly,hideLoggedOnly, addRowToTable, deleteRow, hideUnloggedOnly, showUnloggedOnly  } from "./functions/CustomFunctions.js";
-import { hideModal, showModal } from "./functions/PageAppearance.js";
+import { hideModal, showModal, scrollToDown, changeButtonText } from "./functions/PageAppearance.js";
 import {createFormWithUsernameField} from "./functions/ModalFunctions.js";
+import { performTests } from "./functions/TestFunctions.js";
 
 (async () => {
   const apiUrl = await getSetting("api_address");
@@ -50,9 +51,10 @@ onClick(testButton2, () => {
 onClick(testButton, () => {
   console.log("Test button clicked!");
   addRowToTable("example.txt", "15 KB", "2024-06-15");
+ 
+  scrollToDown()
 });
 
-hideModal("myModal");
-
+performTests();
 
 });
