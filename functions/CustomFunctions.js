@@ -47,6 +47,8 @@ export function addRowToTable(fileName, fileSize, date) {
     // Append the new row to the table body
     tableBody.appendChild(newRow);
 
+    // usage addRowToTable("example.txt", "15 KB", "2024-06-15");
+
     
 }
 //-------------delete row from table--------------------
