@@ -17,3 +17,8 @@ export async function getSetting(key) {
     return null;
   }
 }
+
+export function getUrlParam(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}

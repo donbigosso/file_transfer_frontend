@@ -4,6 +4,7 @@ import { showLoggedOnly,hideLoggedOnly, addRowToTable, deleteRow, hideUnloggedOn
 import { hideModal, showModal, scrollToDown, changeButtonText } from "./functions/PageAppearance.js";
 import {createFormWithUsernameField} from "./functions/ModalFunctions.js";
 import { performTests } from "./functions/TestFunctions.js";
+import { initializeTableSorting } from "./functions/TableFunctions.js";
 
 (async () => {
   const apiUrl = await getSetting("api_address");
@@ -43,18 +44,9 @@ onClick(modalPositiveButton, () => {
   createFormWithUsernameField();
   });
 
-onClick(testButton2, () => {
-  console.log("Test button 2 clicked!");
-  showModal("myModal");
-});
 
-onClick(testButton, () => {
-  console.log("Test button clicked!");
-  addRowToTable("example.txt", "15 KB", "2024-06-15");
- 
-  scrollToDown()
-});
 
 performTests();
+initializeTableSorting();
 
 });
