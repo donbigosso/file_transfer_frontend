@@ -1,4 +1,4 @@
-import { getSetting } from "./functions/CoreFunctions.js";
+import { getSetting, fetchAPIdata } from "./functions/CoreFunctions.js";
 import { onClick } from "./functions/EventFunctions.js";
 import { showLoggedOnly,hideLoggedOnly, addRowToTable, deleteRow, hideUnloggedOnly, showUnloggedOnly  } from "./functions/CustomFunctions.js";
 import { hideModal, showModal, scrollToDown, changeButtonText } from "./functions/PageAppearance.js";
@@ -9,6 +9,8 @@ import { initializeTableSorting } from "./functions/TableFunctions.js";
 (async () => {
   const apiUrl = await getSetting("api_address");
   console.log("api_address:", apiUrl);
+  const apiResponse = await fetchAPIdata();
+  console.log("API Response:", apiResponse.method);
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -45,8 +47,10 @@ onClick(modalPositiveButton, () => {
   });
 
 
-
-performTests();
 initializeTableSorting();
+performTests();
+
+
+
 
 });
