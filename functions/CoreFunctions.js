@@ -23,12 +23,66 @@ export function getUrlParam(name) {
     return urlParams.get(name);
 }
 
+export function buildURLWithParams(baseURL, params) {
+  if (!params || Object.keys(params).length === 0) {
+    return baseURL;
+  }
+  
+  // Check if URL already has query parameters
+  const separator = baseURL.includes('?') ? '&' : '?';
+  
+  // Build query string, handling arrays and special characters
+  const queryString = Object.entries(params)
+    .filter(([_, value]) => value !== null && value !== undefined)
+    .map(([key, value]) => {
+      if (Array.isArray(value)) {
+        // Handle array parameters: tags[]=ai&tags[]=quantum
+        return value
+          .map(item => `${encodeURIComponent(key)}[]=${encodeURIComponent(item)}`)
+          .join('&');
+      }
+      return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+    })
+    .join('&');
+  
+  return `${baseURL}${separator}${queryString}`;
+}
+
+//usage example:
+// const apiURL = "https://api.example.com/data";
+// const params = { search: "test", page: 2, tags: ["ai", "quantum"] };
+// const fullURL = buildURLWithParams(apiURL, params);
+// console.log(fullURL); // "https://api.example.com/data?search=test&page=2&tags[]=ai&tags[]=quantum"
+
+
 export async function fetchAPIdata() {
-  const apiAddress = await getSetting("api_address");
+  
+  const  apiAddress = await getSetting("api_address");
   if (!apiAddress) {
     console.error("API address is not defined in settings.");
     return null;
   }
+
+  try {
+    const response = await fetch(apiAddress);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching API data:", error.message);
+    return null;
+  }
+}
+
+export async function fetchAPIdataWGetParams(params) {
+  const rawApiAddress = await getSetting("api_address");
+  if (!rawApiAddress) {
+    console.error("API address is not defined in settings.");
+    return null;
+  }
+  const apiAddress = await buildURLWithParams(rawApiAddress, params);
+  
 
   try {
     const response = await fetch(apiAddress);
