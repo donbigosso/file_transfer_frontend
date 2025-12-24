@@ -1,3 +1,4 @@
+import { checkHTMLInstance } from "./CoreFunctions.js";
 export function show(element, display = "inline-block") {
   if (!(element instanceof HTMLElement)) {
     console.warn("show(): invalid element");
@@ -44,4 +45,16 @@ export function changeButtonText(button, text) {
   }
 
   button.textContent = text;
+}
+
+export function changeButtonStyle(button) {
+ if(checkHTMLInstance(button)){
+
+ }
+}
+
+export function changeInnerTextContent(element, textContent) {
+  if (checkHTMLInstance(element)) {
+    element.textContent = textContent;
+    }
 }

@@ -1,3 +1,13 @@
+export function checkHTMLInstance (element){
+  if (element instanceof HTMLElement) {
+    return true;
+  }
+  else {
+    console.warn("Invalid element: ", element);
+    return false;
+  }
+}
+
 export async function getSetting(key) {
   try {
     const response = await fetch("../settings.json");

@@ -2,25 +2,19 @@ import { getSetting, fetchAPIdata, fetchAPIdataWGetParams } from "./functions/Co
 import { onClick } from "./functions/EventFunctions.js";
 import { showLoggedOnly,hideLoggedOnly, addRowToTable, deleteRow, hideUnloggedOnly, showUnloggedOnly  } from "./functions/CustomFunctions.js";
 import { hideModal, showModal, scrollToDown, changeButtonText } from "./functions/PageAppearance.js";
-import {createFormWithUsernameField} from "./functions/ModalFunctions.js";
+import {modalClicks, createFormWithUsrPassField} from "./functions/ModalFunctions.js";
 import { performTests } from "./functions/TestFunctions.js";
-import { initializeTableSorting } from "./functions/TableFunctions.js";
+import { initializeTableSorting,  } from "./functions/TableFunctions.js";
 
-(async () => {
-  const apiUrl = await getSetting("api_address");
-  console.log("api_address:", apiUrl);
-  const apiResponse = await fetchAPIdataWGetParams();
-  console.log("API Response:", apiResponse);
-})();
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
-const testButton = document.querySelector("#testBtn");
-const testButton2 = document.querySelector("#testBtn2");
+
 const loginButton = document.querySelector("#login-btn");
 const logoutButton = document.querySelector("#logout-btn");
-const modalCloseButton = document.querySelector("#modal-close-btn");
-const modalPositiveButton = document.querySelector("#modal-btn-positive");
+
+const modalPositiveButton = document.querySelector("#modal-btn-2");
 
 
 
@@ -36,20 +30,17 @@ onClick(logoutButton, () => {
   showUnloggedOnly();
   });
 
-onClick(modalCloseButton, () => {
-  console.log("Modal close button clicked!");
-  hideModal("myModal");
-  });
+
 
 onClick(modalPositiveButton, () => {
   console.log("Modal positive button clicked!");
-  createFormWithUsernameField();
+  createFormWithUsrPassField();
   });
 
 
 initializeTableSorting();
 performTests();
-
+modalClicks();
 
 
 
