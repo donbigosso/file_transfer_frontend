@@ -49,6 +49,11 @@ main {
 .logged-only { display: none; } /* when not logged in */
 
 
+/* Modal */
+#modal-alert-field {
+    display: none;
+}
+
 th {
     position: relative;
 }

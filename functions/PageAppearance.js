@@ -30,6 +30,23 @@ export function hideModal(modalID) {
   document.body.style.overflow = '';
 }
 
+export function showLoggedOnly(){
+    const loggedIn = document.querySelectorAll(".logged-only");
+    loggedIn.forEach(el => show(el));}
+
+export function hideLoggedOnly(){
+    const loggedIn = document.querySelectorAll(".logged-only");
+    loggedIn.forEach(el => hide(el));                           
+} 
+export function showUnloggedOnly(){
+    const unlogged = document.querySelectorAll(".unlogged-only");
+    unlogged.forEach(el => show(el));   }  
+
+    export function hideUnloggedOnly(){
+    const unlogged = document.querySelectorAll(".unlogged-only");
+    unlogged.forEach(el => hide(el));                           
+}
+
 export function scroolToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }

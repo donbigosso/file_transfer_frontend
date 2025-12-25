@@ -21,11 +21,11 @@ export function performTests(){
     const testButton = document.querySelector("#testBtn");
     const testButton2 = document.querySelector("#testBtn2");
     changeButtonText(testButton, "Test API GET");
-    changeButtonText(testButton2, "Show Modal");
+    changeButtonText(testButton2, "Test button 2");
     checkHTMLInstance("dupa");
     onClick(testButton2, () => {
   console.log("Test button 2 clicked!");
-  showModal("myModal");
+ 
     });
 
     onClick(testButton, () => {

@@ -1,21 +1,6 @@
-import { show } from "./PageAppearance.js"; 
-import { hide } from "./PageAppearance.js";
-export function showLoggedOnly(){
-    const loggedIn = document.querySelectorAll(".logged-only");
-    loggedIn.forEach(el => show(el));}
+import { hide, show, showLoggedOnly, hideUnloggedOnly } from "./PageAppearance.js"; 
+import { hideModal } from "./PageAppearance.js";    
 
-export function hideLoggedOnly(){
-    const loggedIn = document.querySelectorAll(".logged-only");
-    loggedIn.forEach(el => hide(el));                           
-} 
-export function showUnloggedOnly(){
-    const unlogged = document.querySelectorAll(".unlogged-only");
-    unlogged.forEach(el => show(el));   }  
-
-    export function hideUnloggedOnly(){
-    const unlogged = document.querySelectorAll(".unlogged-only");
-    unlogged.forEach(el => hide(el));                           
-}
 //------------------
 //-----FILE TABLE FUNCTIONS-------
 //------------------    
@@ -85,4 +70,10 @@ function updateRowNumbers() {
             rowNumberCell.textContent = index + 1;
         }
     });
+}
+
+export function handleLogIn(){
+    showLoggedOnly();
+    hideUnloggedOnly();
+    hideModal("my_modal");
 }
