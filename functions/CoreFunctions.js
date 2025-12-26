@@ -105,3 +105,18 @@ export async function fetchAPIdataWGetParams(params) {
     return null;
   }
 }
+
+export async function downloadFile(url, filename) {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+  
+  URL.revokeObjectURL(link.href); // cleanup
+}
+
+// Usage
+// downloadFile('https://example.com/path/to/file.pdf', 'file.pdf');
