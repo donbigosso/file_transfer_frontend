@@ -34,7 +34,7 @@ export function performTests(){
     const testButton2 = document.querySelector("#testBtn2");
     changeButtonText(testButton, "Delete row 5");
     changeButtonText(testButton2, "Download a file");
-    const fileToDownloadPath="http://192.168.0.122:8082/uploads/copy.txt";
+    const fileToDownloadPath="http://192.168.0.122:8082/api_engine.php?request=download&file=YouTube Music.html";
     const downloadedFileName = "donbigosso_download.txt";
 
     onClick(testButton, () => {
