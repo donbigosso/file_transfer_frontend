@@ -78,3 +78,7 @@ th.sort-desc .sort-icon::before {
     content: "\f575"; /* bi-arrow-down */
     opacity: 1;
 }
+
+
+/* test fields */
+.test_field {display: none;}

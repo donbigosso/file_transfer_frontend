@@ -2,6 +2,7 @@ import { hideModal, showModal, scrollToDown, changeButtonText } from "./PageAppe
 import { addFileListToTable, addRowToTable, deleteRow } from "./TableFunctions.js";
 import { onClick } from "./EventFunctions.js";
 import { downloadFile } from "./CoreFunctions.js";
+import {downloadFileFromAPI} from "./CustomFunctions.js";
 
 import  {getFileList} from "./RequestFunctions.js";
 
@@ -42,7 +43,7 @@ export function performTests(){
        
     });
       onClick(testButton2, async () => {
-        downloadFile(fileToDownloadPath, downloadedFileName);
+       downloadFileFromAPI("file11.txt");
     }); 
     
 }

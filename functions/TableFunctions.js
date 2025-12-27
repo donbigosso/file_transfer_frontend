@@ -1,5 +1,5 @@
 //file table sorting
-
+import { downloadFileFromAPI } from "./CustomFunctions.js";
 
 function sortTable(columnIndex, isNumeric = false, isDate = false) {
   const tbody = document.getElementById('file-table-body');
@@ -59,34 +59,24 @@ document.querySelectorAll('thead th').forEach((th, index) => {
 
 //-------------add row to table--------------------
 export function addRowToTable(fileName, fileSize, date) {
-    // Get the table body element
-    const tableBody = document.getElementById('file-table-body');
-    
-    // Create a new row
-    const newRow = document.createElement('tr');
-    
-    // Get the next row number (assuming first <th> is the row number)
-    const nextRowNumber = tableBody.querySelectorAll('tr').length + 1;
-    
-    // Create and populate the row content
-    newRow.innerHTML = `
-        <th>${nextRowNumber}</th>
-        <td>${fileName}</td>
-        <td>${fileSize}</td>
-        <td>${date}</td>
-        <td class="text-center">
-            <button class="btn btn-sm btn-primary me-1">Download</button>
-            <button class="btn btn-sm btn-warning me-1 logged-only">Rename</button>
-            <button class="btn btn-sm btn-danger logged-only">Delete</button>
-        </td>
-    `;
-    
-    // Append the new row to the table body
-    tableBody.appendChild(newRow);
+  const tableBody = document.getElementById('file-table-body');
+  const newRow = document.createElement('tr');
 
-    // usage addRowToTable("example.txt", "15 KB", "2024-06-15");
+  const nextRowNumber = tableBody.querySelectorAll('tr').length + 1;
 
-    
+  newRow.innerHTML = `
+    <th>${nextRowNumber}</th>
+    <td>${fileName}</td>
+    <td>${fileSize}</td>
+    <td>${date}</td>
+    <td class="text-center">
+      <button class="btn btn-sm btn-primary me-1" data-action="download">Download</button>
+      <button class="btn btn-sm btn-warning me-1 logged-only" data-action="rename">Rename</button>
+      <button class="btn btn-sm btn-danger logged-only" data-action="delete">Delete</button>
+    </td>
+  `;
+
+  tableBody.appendChild(newRow);
 }
 //-------------delete row from table--------------------
 export function deleteRow(rowNumber) {
@@ -132,7 +122,38 @@ export function addFileListToTable(fileArray){
   ["presentation.pptx", 1800, "2024-06-12"]
 ]
   */
+  
   fileArray.forEach(file => {
-    addRowToTable(file[0], file[1], file[2]);
+    const fileSizeKB = file[1] + " KB";
+    addRowToTable(file[0], fileSizeKB, file[2]);
    })
+}
+
+// Table buttons
+
+export function initializeTableButtons() {
+  document.getElementById('file-table-body').addEventListener('click', function(e) {
+  if (e.target.matches('button[data-action]')) {
+    const action = e.target.dataset.action;
+    const row = e.target.closest('tr');
+
+    // Get file info from row
+    const fileName = row.cells[1].textContent;
+    const fileSize = row.cells[2].textContent;
+    const date = row.cells[3].textContent;
+
+    if (action === 'download') {
+      // handle download
+      console.log('Download:', fileName);
+      downloadFileFromAPI(fileName);
+    } else if (action === 'rename') {
+      // handle rename
+      console.log('Rename:', fileName);
+    } else if (action === 'delete') {
+      // handle delete - e.g., row.remove();
+      console.log('Delete:', fileName);
+      row.remove();
+    }
+  }
+});
 }

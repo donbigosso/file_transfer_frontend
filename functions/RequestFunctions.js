@@ -8,9 +8,10 @@ export async function getFileList() {
             console.warn("No files available from the API.");
         }
         else {
-        console.log("File List:", fileList);}
+        // console.log("File List:", fileList);
+        return fileList;}
         
-        return fileList;
+        
     } else {
         console.error(apiResponse.error);
         return [];
