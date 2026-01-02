@@ -82,3 +82,16 @@ th.sort-desc .sort-icon::before {
 
 /* test fields */
 .test_field {display: none;}
+
+/* Table */
+button .bi,
+button .bi svg {
+    pointer-events: none;
+}
+
+/* Big screen only class */
+@media (max-width: 780px) {
+    .big-screen-only {
+        display: none;
+    }
+}
