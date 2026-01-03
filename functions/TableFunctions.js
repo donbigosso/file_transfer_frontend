@@ -71,7 +71,9 @@ export function addRowToTable(fileName, fileSize, date) {
     <td>${date}</td>
     <td class="text-center">
       <button class="btn btn-sm btn-primary me-1" data-action="download"><i class="bi bi-download"></i></button>
-      <button class="btn btn-sm btn-success me-1" data-action="copy-link"><i class="bi bi-link-45deg"></i></button>
+      <button class="btn btn-sm btn-success me-1" data-action="copy-link"><i class="bi bi-link-45deg"></i>
+        
+      </button>
       <button class="btn btn-sm btn-warning me-1 logged-only" data-action="rename">Rename</button>
       <button class="btn btn-sm btn-danger logged-only" data-action="delete">Delete</button>
     </td>
@@ -157,8 +159,27 @@ export function initializeTableButtons() {
     }
     else if (action === 'copy-link') {
       // handle copy link
+
       generateAndCopyDownloadLink(fileName);
+      const button = e.target.closest('button');
+  const feedback = button.querySelector('.copied-feedback');
+
+  generateAndCopyDownloadLink(fileName);
+
+  showCopiedLinkFeedback();
     }
   }
 });
+
+}
+
+function showCopiedLinkFeedback() {
+  const feedbackElement = document.getElementById('global-copy-feedback');
+  feedbackElement.classList.remove('opacity-0');
+  feedbackElement.classList.add('opacity-100');
+
+  setTimeout(() => {
+    feedbackElement.classList.remove('opacity-100');
+    feedbackElement.classList.add('opacity-0');
+  }, 1500);
 }

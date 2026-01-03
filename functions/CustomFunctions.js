@@ -44,5 +44,6 @@ export async function generateAndCopyDownloadLink(filename){
     const link = await generateDownloadLink(filename);
     if (link) {
         await copyToClipboard(link);
+        
     }
 }

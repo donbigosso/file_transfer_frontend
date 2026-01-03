@@ -89,6 +89,14 @@ button .bi svg {
     pointer-events: none;
 }
 
+.copied-feedback {
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  font-size: 0.8rem;
+  z-index: 10;
+}
+
+
 /* Big screen only class */
 @media (max-width: 780px) {
     .big-screen-only {
