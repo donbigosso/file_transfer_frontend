@@ -1,7 +1,7 @@
-import { hideModal, showModal, scrollToDown, changeButtonText } from "./PageAppearance.js";
-import { addFileListToTable, addRowToTable, deleteRow } from "./TableFunctions.js";
+import {  changeButtonText } from "./PageAppearance.js";
+import {  deleteRow } from "./TableFunctions.js";
 import { onClick } from "./EventFunctions.js";
-import { downloadFile } from "./CoreFunctions.js";
+import { getSetting , verifyUserByPassword } from "./CoreFunctions.js";
 import {downloadFileFromAPI} from "./CustomFunctions.js";
 
 import  {getFileList} from "./RequestFunctions.js";
@@ -34,16 +34,16 @@ export function performTests(){
     const testButton = document.querySelector("#testBtn");
     const testButton2 = document.querySelector("#testBtn2");
     changeButtonText(testButton, "Delete row 5");
-    changeButtonText(testButton2, "Download a file");
-    const fileToDownloadPath="http://192.168.0.122:8082/api_engine.php?request=download&file=YouTube Music.html";
-    const downloadedFileName = "donbigosso_download.txt";
+    changeButtonText(testButton2, "Test POST request");
 
     onClick(testButton, () => {
       deleteRow(5);
        
     });
       onClick(testButton2, async () => {
-       downloadFileFromAPI("file11.txt");
+      const api_response = await verifyUserByPassword("bigos","password");
+      console.log(api_response);
+
     }); 
     
 }

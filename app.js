@@ -4,6 +4,7 @@ import {modalClicks, showLoginModal} from "./functions/ModalFunctions.js";
 import { initializeTableSorting,  addFileListToTable, initializeTableButtons  } from "./functions/TableFunctions.js";
 import { showUnloggedOnly, hideLoggedOnly } from "./functions/PageAppearance.js";
 import { getFileList } from "./functions/RequestFunctions.js";
+import { performTests } from "./functions/TestFunctions.js";
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -27,6 +28,7 @@ onClick(loginButton, () => {
 
 initializeTableSorting();
 initializeTableButtons();
+performTests();
 
 
 

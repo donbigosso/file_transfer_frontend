@@ -81,7 +81,7 @@ th.sort-desc .sort-icon::before {
 
 
 /* test fields */
-.test_field {display: none;}
+.test_field {display: block;}
 
 /* Table */
 button .bi,
