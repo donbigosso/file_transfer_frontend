@@ -154,7 +154,9 @@ export async function verifyUserByPassword (username, password) {
   const params = {request: "verify_user_password", username: username, password: password}
   const apiResponse = await POSTJSONRequest(params);
   if (apiResponse.success=true){
-    return apiResponse.data.password_verified;
+    // return apiResponse.data.password_verified;
+    return apiResponse;
+    
   }
   
 

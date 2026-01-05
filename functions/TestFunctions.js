@@ -1,7 +1,7 @@
 import {  changeButtonText } from "./PageAppearance.js";
 import {  deleteRow } from "./TableFunctions.js";
 import { onClick } from "./EventFunctions.js";
-import { getSetting , verifyUserByPassword } from "./CoreFunctions.js";
+import { getSetting , verifyUserByPassword, POSTJSONRequest } from "./CoreFunctions.js";
 import {downloadFileFromAPI} from "./CustomFunctions.js";
 
 import  {getFileList} from "./RequestFunctions.js";
@@ -42,7 +42,9 @@ export function performTests(){
     });
       onClick(testButton2, async () => {
       const api_response = await verifyUserByPassword("bigos","password");
-      console.log(api_response);
+      //const test_response= await POSTJSONRequest({request: "create_user",name:"szymon", password:"test"});
+const test_response= await POSTJSONRequest({request: "delete_user",name:"szymon3", password:"test"});
+      console.log(test_response);
 
     }); 
     
