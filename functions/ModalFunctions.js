@@ -1,6 +1,7 @@
 import { show, hide, changeButtonText, changeInnerTextContent, showModal, hideModal } from "./PageAppearance.js";    
 import { onClick } from "./EventFunctions.js";
-import { handleLogIn } from "./CustomFunctions.js";
+import { handleLogIn } from "./LoginFunctions.js";
+
 const modalBody = document.querySelector('.modal-body');
 const modalCloseButton = document.querySelector("#modal-close-btn");
 const modalAlertField = document.getElementById('modal-alert-field');

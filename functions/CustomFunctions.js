@@ -3,11 +3,6 @@ import { hideModal } from "./PageAppearance.js";
 import { getSetting, downloadFile } from "./CoreFunctions.js";   
 
 
-export function handleLogIn(){
-    showLoggedOnly();
-    hideUnloggedOnly();
-    hideModal("my_modal");
-}
 
 export async function generateDownloadLink(filename){
     const apiAddress = await getSetting("api_address");
@@ -39,6 +34,7 @@ export async function copyToClipboard(text) {
         console.error('Failed to copy: ', err);
     }
 }
+
 
 export async function generateAndCopyDownloadLink(filename){
     const link = await generateDownloadLink(filename);

@@ -42,8 +42,9 @@ export function performTests(){
     });
       onClick(testButton2, async () => {
       const api_response = await verifyUserByPassword("bigos","password");
-      //const test_response= await POSTJSONRequest({request: "create_user",name:"szymon", password:"test"});
-const test_response= await POSTJSONRequest({request: "delete_user",name:"szymon3", password:"test"});
+ //    const test_response= await POSTJSONRequest({request: "create_user",name:"szymon6", password:"maskarada"});
+const test_response= await POSTJSONRequest({request: "verify_user_token",name:"bigos", token:"supertoken1234"});
+//const test_response= await POSTJSONRequest({request: "set_user_token",name:"bigos", token:"supertoken1234"});
       console.log(test_response);
 
     }); 
