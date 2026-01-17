@@ -1,23 +1,30 @@
 import { showLoggedOnly, hideUnloggedOnly } from "./PageAppearance.js"; 
 import { hideModal } from "./PageAppearance.js"; 
+import {verifyUserByPassword }from "./CoreFunctions.js";
 
 
-export function handleLogIn(){
+export async function handleLogIn(){
     const username = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
     const errorField = document.getElementById('modal-alert-field');
-    if(validate_login_and_password()){
-    showLoggedOnly();
-    hideUnloggedOnly();
-    hideModal("my_modal");
+    const frontednValidation = await validateLoginAndPassFrontend();
+    if(frontednValidation){
+        
+        const apiValidation = await validateLoginAndPassAPI(username, password);
+        console.log("API creds validated DEB762", apiValidation);
+
     }
     else {
         errorField.style.display = "block";
         errorField.innerText = "Invalid credentials"
+        return;
     }
+    showLoggedOnly();
+    hideUnloggedOnly();
+    hideModal("my_modal");
 }
 
-export function validate_login_and_password(){
+export async function validateLoginAndPassFrontend(){
     const username = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
     const passRegex = /^(?=.*[A-Z])(?=.*\d).{10,}$/;
@@ -25,6 +32,7 @@ export function validate_login_and_password(){
     const isPassValid = passRegex.test(password);
     const isUsrNameValid = usrNameRegex.test(username);
     if(isPassValid && isUsrNameValid){
+       console.log("DEB7575 test");
          return true;
     }
     else {
@@ -33,4 +41,13 @@ export function validate_login_and_password(){
     }
     
    
+}
+
+export async function validateLoginAndPassAPI(username, password){
+    
+    const passwordVerification = await verifyUserByPassword(username, password);
+    console.log("DEB7262", username, password);
+    return passwordVerification;
+
+
 }
