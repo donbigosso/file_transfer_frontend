@@ -8,15 +8,22 @@ export async function handleLogIn(){
     const password = document.getElementById('loginPassword').value;
     const errorField = document.getElementById('modal-alert-field');
     const frontednValidation = await validateLoginAndPassFrontend();
+    const showError = function(){
+        errorField.style.display = "block";
+        errorField.innerText = "Invalid credentials";
+    }
     if(frontednValidation){
         
         const apiValidation = await validateLoginAndPassAPI(username, password);
-        console.log("API creds validated DEB762", apiValidation);
-
+        const validationStatus = apiValidation.data.password_verification;
+        console.log("API creds validated DEB762", apiValidation, " validation status: ", validationStatus);
+        if(!validationStatus){
+            showError();
+            return;
+        }
     }
     else {
-        errorField.style.display = "block";
-        errorField.innerText = "Invalid credentials"
+       showError();
         return;
     }
     showLoggedOnly();
@@ -46,7 +53,7 @@ export async function validateLoginAndPassFrontend(){
 export async function validateLoginAndPassAPI(username, password){
     
     const passwordVerification = await verifyUserByPassword(username, password);
-    console.log("DEB7262", username, password);
+    
     return passwordVerification;
 
 
