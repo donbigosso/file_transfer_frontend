@@ -68,6 +68,15 @@ th:hover .sort-icon {
     opacity: 0.8;
 }
 
+/* File upload */
+
+#upload-alert-field {
+    display: none;
+}
+
+#selected-file-list {
+  display: none;   
+}
 /* Optional: active sort indicator (you can toggle these classes with JS later) */
 th.sort-asc .sort-icon::before {
     content: "\f574"; /* bi-arrow-up */

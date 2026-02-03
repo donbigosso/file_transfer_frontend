@@ -5,6 +5,7 @@ import { initializeTableSorting,  addFileListToTable, initializeTableButtons  } 
 import { showUnloggedOnly, hideLoggedOnly } from "./functions/PageAppearance.js";
 import { getFileList } from "./functions/RequestFunctions.js";
 import { performTests } from "./functions/TestFunctions.js";
+import {uploadFile} from "./functions/UploadFunctions.js";
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,6 +18,7 @@ const loginButton = document.querySelector("#login-btn");
 const logoutButton = document.querySelector("#logout-btn");
 
 
+
 onClick(loginButton, () => {
    showLoginModal();
   });
@@ -25,6 +27,8 @@ onClick(loginButton, () => {
     showUnloggedOnly();
     hideLoggedOnly();
   });
+
+
 
 initializeTableSorting();
 initializeTableButtons();

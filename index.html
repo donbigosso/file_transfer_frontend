@@ -41,6 +41,29 @@
     </header>
 
     <main class="container mt-5">
+        <!-- File upload goes here -->
+        <div class="mb-4 ">
+            <form id="upload-form">
+                <div class="mb-3">
+                    <label for="file-upload" class="form-label"><h2 class="mb-4 text-primary">Upload files (max 5)</h2></label>
+                    <input 
+                        type="file" 
+                        class="form-control" 
+                        id="file-upload" 
+                        name="files[]" 
+                        multiple
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary" id="upload-btn">Upload</button>
+            </form>
+            <div id="upload-alert-field" class="alert alert-danger m-3 " role="alert">
+                This is a file upload error
+            </div>
+            <div id="selected-file-list" class="text-success mt-2">
+                Files selected:
+            </div>
+           
+        </div>
         <h2 class="mb-4 text-primary">Available Files</h2>
 
         <div class="table-responsive">
