@@ -3,7 +3,7 @@ import {  deleteRow } from "./TableFunctions.js";
 import { onClick } from "./EventFunctions.js";
 import { POSTJSONRequest } from "./CoreFunctions.js";
 import { createUser } from "./RequestFunctions.js";
-import {downloadFileFromAPI} from "./CustomFunctions.js";
+import { setCookie, getCookie, deleteCookie } from "./CookieFunctions.js";
 
 import  {getFileList} from "./RequestFunctions.js";
 
@@ -34,11 +34,11 @@ export function performTests(){
   
     const testButton = document.querySelector("#testBtn");
     const testButton2 = document.querySelector("#testBtn2");
-    changeButtonText(testButton, "Delete row 5");
+    changeButtonText(testButton, "Test delete cookie");
     changeButtonText(testButton2, "Test POST request");
 
     onClick(testButton, () => {
-      deleteRow(5);
+      deleteCookie("testowe_ciasteczko");
        
     });
       onClick(testButton2, async () => {
