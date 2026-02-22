@@ -2,7 +2,7 @@ import {  changeButtonText } from "./PageAppearance.js";
 import { setSessionToken } from "./LoginFunctions.js";
 import { onClick } from "./EventFunctions.js";
 import { POSTJSONRequest, checkIfTokenExist} from "./CoreFunctions.js";
-import { createUser } from "./RequestFunctions.js";
+import { createUser, checkUserToken, getUserByToken } from "./RequestFunctions.js";
 import { setCookie, getCookie, deleteCookie } from "./CookieFunctions.js";
 
 import  {getFileList} from "./RequestFunctions.js";
@@ -60,11 +60,11 @@ export function performTests(){
   
     const testButton = document.querySelector("#testBtn");
     const testButton2 = document.querySelector("#testBtn2");
-    changeButtonText(testButton, "Set session token");
+    changeButtonText(testButton, "Get user by token");
     changeButtonText(testButton2, "Test POST request");
 
     onClick(testButton, async () => {
-      const testResponse = await setSessionToken(7, "bigos");
+      const testResponse = await getUserByToken("6z5iethzg7xaslw543gg6b");
       console.log(testResponse); 
     });
       onClick(testButton2, async () => {

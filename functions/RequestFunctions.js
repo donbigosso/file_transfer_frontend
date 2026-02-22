@@ -48,3 +48,13 @@ export async function setUserToken(username, token, days = 7){
     const serverResponse = await POSTJSONRequest({request: "set_user_token", name: username, token: token , days: days} );
     return serverResponse;
 }
+
+export async function checkUserToken(username, token){
+    const serverResponse = await POSTJSONRequest({request: "verify_user_token", name: username, token: token});
+    return serverResponse;
+}
+
+export async function getUserByToken(token){
+    const serverResponse = await POSTJSONRequest({request: "get_user_by_token", token: token});
+    return serverResponse;
+}
