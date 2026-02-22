@@ -1,6 +1,8 @@
 import { showLoggedOnly, hideUnloggedOnly } from "./PageAppearance.js"; 
 import { hideModal } from "./PageAppearance.js"; 
-import {verifyUserByPassword }from "./CoreFunctions.js";
+import {verifyUserByPassword, checkIfTokenExist}from "./CoreFunctions.js";
+import {setUserToken} from "./RequestFunctions.js";
+import  {setCookie} from "./CookieFunctions.js";
 
 
 export async function handleLogIn(){
@@ -57,4 +59,33 @@ export async function validateLoginAndPassAPI(username, password){
     return passwordVerification;
 
 
+}
+
+
+
+
+async function createSessionToken() { //from Grok
+    while (true) {
+        // Generate a reasonably long random token
+        const token = 
+            Math.random().toString(36).substring(2, 15) + 
+            Math.random().toString(36).substring(2, 15);
+        
+        const tokenExistence = await checkIfTokenExist(token);
+        
+        console.log("DEB928 token:", token, "existence:", tokenExistence);
+
+        if (!tokenExistence) {
+            return token;           // ← found a free one → return it
+        }
+
+        // If we get here → token already exists → loop again
+    }
+}
+
+export async function setSessionToken(days = 14, username){
+    const token = await createSessionToken();
+    setCookie("session_token", token, days);
+   return  setUserToken(username, token, days);
+   // return "DEB929 token for user " + username + " created: "+ token+" valid for: " +days +" days";
 }

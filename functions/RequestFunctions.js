@@ -43,3 +43,8 @@ export async function createUser(username, password) {
         return false;
     }
 }
+
+export async function setUserToken(username, token, days = 7){
+    const serverResponse = await POSTJSONRequest({request: "set_user_token", name: username, token: token , days: days} );
+    return serverResponse;
+}

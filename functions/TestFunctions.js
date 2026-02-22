@@ -1,7 +1,7 @@
 import {  changeButtonText } from "./PageAppearance.js";
-import {  deleteRow } from "./TableFunctions.js";
+import { setSessionToken } from "./LoginFunctions.js";
 import { onClick } from "./EventFunctions.js";
-import { POSTJSONRequest } from "./CoreFunctions.js";
+import { POSTJSONRequest, checkIfTokenExist} from "./CoreFunctions.js";
 import { createUser } from "./RequestFunctions.js";
 import { setCookie, getCookie, deleteCookie } from "./CookieFunctions.js";
 
@@ -29,17 +29,43 @@ export async function getMockFileList(){
   }
 }
 
+var expect = function(val) {
+    return {
+        toBe: function(equal){
+        
+            if(val === equal){
+                return true;
+            }
+            else {
+                throw new Error ("Not Equal");
+            }
+        },
+        notToBe: function(diff){
+
+        }
+    }
+};
+
+function calculator(firstNumn){
+  return {
+    add: function(secondNum){
+      return firstNumn +secondNum;
+    }
+  }
+}
+
+
 
 export function performTests(){
   
     const testButton = document.querySelector("#testBtn");
     const testButton2 = document.querySelector("#testBtn2");
-    changeButtonText(testButton, "Test delete cookie");
+    changeButtonText(testButton, "Set session token");
     changeButtonText(testButton2, "Test POST request");
 
-    onClick(testButton, () => {
-      deleteCookie("testowe_ciasteczko");
-       
+    onClick(testButton, async () => {
+      const testResponse = await setSessionToken(7, "bigos");
+      console.log(testResponse); 
     });
       onClick(testButton2, async () => {
  // const test_response = await verifyUserByPassword("bisssgos","Budwajzer@13");
@@ -49,5 +75,7 @@ const test_response= await createUser("tester2", "Serwatka111");
       console.log(test_response);
 
     }); 
+
+
     
 }

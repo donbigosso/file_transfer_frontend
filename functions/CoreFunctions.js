@@ -158,9 +158,16 @@ export async function verifyUserByPassword (username, password) {
     return apiResponse;
     
   }
+
+  
   
 
   
+}
+
+export async function checkIfTokenExist(token){
+    const tokenTest = await POSTJSONRequest({request: "check_token_existence",token: token});
+    return tokenTest.success;
 }
 
 // Usage
