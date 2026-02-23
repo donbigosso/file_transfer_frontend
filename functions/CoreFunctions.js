@@ -141,7 +141,7 @@ export async function POSTJSONRequest(params) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    console.log("DEB34 POST response status:", response.status);
+    
     return await response.json();
   } catch (error) {
     console.error("Error fetching POST data:", error.message);

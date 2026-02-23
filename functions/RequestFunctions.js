@@ -1,5 +1,6 @@
 import { fetchAPIdataWGetParams } from "./CoreFunctions.js ";
 import { POSTJSONRequest } from "./CoreFunctions.js";
+import{getCookie} from "./CookieFunctions.js";
 export async function getFileList() {
     const apiResponse = await fetchAPIdataWGetParams({ request: 'list_files' });
     const success = apiResponse.success;
@@ -44,7 +45,7 @@ export async function createUser(username, password) {
     }
 }
 
-export async function setUserToken(username, token, days = 7){
+export async function setUserToken(username, token, days = 14){
     const serverResponse = await POSTJSONRequest({request: "set_user_token", name: username, token: token , days: days} );
     return serverResponse;
 }
@@ -57,4 +58,24 @@ export async function checkUserToken(username, token){
 export async function getUserByToken(token){
     const serverResponse = await POSTJSONRequest({request: "get_user_by_token", token: token});
     return serverResponse;
+}
+
+export async function clearUserToken() {
+    const loggedUser = await verifySession();
+    if (loggedUser) {
+        const serverResponse = await POSTJSONRequest({request: "clear_token", name: loggedUser});
+       
+        return serverResponse;
+    }
+    console.warn("DEB877 No logged user found to clear token");
+}
+
+export async function verifySession() {
+    const sessionCookie = getCookie("session_token");
+    if (!sessionCookie) {
+        console.warn("DEB876 No session token found");
+        return false;
+    }
+    const serverResponse = await POSTJSONRequest({request: "get_user_by_token", token: sessionCookie});
+    return serverResponse.data.user_found;
 }

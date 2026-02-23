@@ -1,4 +1,5 @@
 import { checkHTMLInstance } from "./CoreFunctions.js";
+import { verifySession } from "./RequestFunctions.js";
 export function show(element, display = "inline-block") {
   if (!(element instanceof HTMLElement)) {
     console.warn("show(): invalid element");
@@ -75,3 +76,21 @@ export function changeInnerTextContent(element, textContent) {
     element.textContent = textContent;
     }
 }
+
+export async function displayLoggedUser(){
+  const user =await verifySession();
+  const userField = document.getElementById("user-field");
+  if(!userField){
+    console.warn("DEB122  user field not found");
+    return;
+  }
+  if (user) {
+    // TODO: Display user information
+    console.log("DEB 123 User is logged in");
+    userField.textContent = user;
+  }
+  else {
+    console.log("DEB 124 User is not logged in");
+    return;
+  }
+  }

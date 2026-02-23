@@ -1,8 +1,8 @@
-import { showLoggedOnly, hideUnloggedOnly } from "./PageAppearance.js"; 
-import { hideModal } from "./PageAppearance.js"; 
+import { showLoggedOnly, hideUnloggedOnly, showUnloggedOnly, hideLoggedOnly } from "./PageAppearance.js"; 
+import { hideModal, displayLoggedUser } from "./PageAppearance.js"; 
 import {verifyUserByPassword, checkIfTokenExist}from "./CoreFunctions.js";
-import {setUserToken} from "./RequestFunctions.js";
-import  {setCookie} from "./CookieFunctions.js";
+import {setUserToken, verifySession} from "./RequestFunctions.js";
+import  {setCookie, deleteCookie} from "./CookieFunctions.js";
 
 
 export async function handleLogIn(){
@@ -18,7 +18,7 @@ export async function handleLogIn(){
         
         const apiValidation = await validateLoginAndPassAPI(username, password);
         const validationStatus = apiValidation.data.password_verification;
-        console.log("API creds validated DEB762", apiValidation, " validation status: ", validationStatus);
+        
         if(!validationStatus){
             showError();
             return;
@@ -28,7 +28,12 @@ export async function handleLogIn(){
        showError();
         return;
     }
+    
+    // Set session token
+    const sessionTokenResponse = await setSessionToken(14, username);
+    
     showLoggedOnly();
+    displayLoggedUser();
     hideUnloggedOnly();
     hideModal("my_modal");
 }
@@ -41,7 +46,7 @@ export async function validateLoginAndPassFrontend(){
     const isPassValid = passRegex.test(password);
     const isUsrNameValid = usrNameRegex.test(username);
     if(isPassValid && isUsrNameValid){
-       console.log("DEB7575 test");
+       
          return true;
     }
     else {
@@ -73,7 +78,7 @@ async function createSessionToken() { //from Grok
         
         const tokenExistence = await checkIfTokenExist(token);
         
-        console.log("DEB928 token:", token, "existence:", tokenExistence);
+       
 
         if (!tokenExistence) {
             return token;           // ← found a free one → return it
@@ -86,6 +91,27 @@ async function createSessionToken() { //from Grok
 export async function setSessionToken(days = 14, username){
     const token = await createSessionToken();
     setCookie("session_token", token, days);
-   return  setUserToken(username, token, days);
-   // return "DEB929 token for user " + username + " created: "+ token+" valid for: " +days +" days";
+    //set_user_token
+    const setUserTokenResponse = await setUserToken(username, token, days);
+
+   return setUserTokenResponse;
+
+}
+
+export async function handleAutoLogin(){
+    // Check if user is already logged in
+    const user = await verifySession();
+    if (user) {
+        showLoggedOnly();
+        displayLoggedUser();
+        hideUnloggedOnly();
+    }
+}
+
+
+export async function handleLogout(){
+   showUnloggedOnly();
+     hideLoggedOnly();
+     deleteCookie("session_token");
+     await clearUserToken();
 }
