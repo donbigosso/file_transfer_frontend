@@ -30,6 +30,21 @@ export function hideModal(modalID) {
   modal.style.backgroundColor = '';
   document.body.style.overflow = '';
 }
+export function newHideModal(modalID) {
+  const modal = document.getElementById(modalID);
+  if (!modal) return;
+
+  // 1. blur FIRST — before Bootstrap does anything
+  if (document.activeElement && modal.contains(document.activeElement)) {
+    document.activeElement.blur();
+  }
+
+  // 2. now safe to hide
+  const bsModal = bootstrap.Modal.getInstance(modal);
+  if (bsModal) {
+    bsModal.hide();
+  }
+}
 
 export function showLoggedOnly(){
     const loggedIn = document.querySelectorAll(".logged-only");

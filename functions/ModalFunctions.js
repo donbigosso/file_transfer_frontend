@@ -23,11 +23,22 @@ export function hideModalAlert(){
   hide(modalAlertField);
 }
 
-export function createForm(){
+export function createLoginForm(){
 modalBody.innerHTML = '';  // clear old content
 const form = document.createElement('form');
 form.id = 'login-form';
 modalBody.appendChild(form);
+}
+
+export function hideLoginForm(){
+  const loginForm = document.getElementById('login-form');
+  if(loginForm){
+    hide(loginForm);
+    console.log("DEB543 Closing login form");
+  }
+  else {
+    console.log("DEB545 login form not found");
+  }
 }
 
 
@@ -82,7 +93,7 @@ form.appendChild(div);
 export function showLoginModal(){
  
   showModal("my_modal");
-  createFormWithUsrPassField();
+  createLoginFormWithUsrPassField();
   setModalTitle("User Login");
   hide(modalBtn2)
   changeInnerTextContent(modalBtn1, "Cancel");
@@ -92,8 +103,8 @@ export function showLoginModal(){
   onClick(modalCloseButton,(() =>  hideModal("my_modal")));
 }
 
-export function createFormWithUsrPassField(){
-createForm();
+export function createLoginFormWithUsrPassField(){
+createLoginForm();
 createLoginField();
 createPasswordField();
 
@@ -106,3 +117,17 @@ onClick(modalCloseButton, () => {
   hideModal("my_modal");
 })
 }
+
+export function showRenameModal(){
+  showModal("my_modal");
+  setModalTitle("Rename file");
+  hide(modalBtn2);
+  onClick(modalCloseButton,(() =>  hideModal("my_modal")));
+   onClick(modalBtn1,(() =>  hideModal("my_modal")));
+  onClick(modalBtn3,(() =>  hideLoginForm()));
+  changeInnerTextContent(modalBtn1, "Cancel");
+  changeInnerTextContent(modalBtn3, "(CF) Rename");
+
+
+}
+

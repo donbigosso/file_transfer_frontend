@@ -1,11 +1,11 @@
-import {  changeButtonText } from "./PageAppearance.js";
-import { setSessionToken } from "./LoginFunctions.js";
+import {  changeButtonText, showModal } from "./PageAppearance.js";
+import { setSessionToken} from "./LoginFunctions.js";
 import { onClick } from "./EventFunctions.js";
-import { POSTJSONRequest, checkIfTokenExist} from "./CoreFunctions.js";
+import { showLoginModal } from "./NewModalMethods.js";
 import { clearUserToken, verifySession } from "./RequestFunctions.js";
 import { setCookie, getCookie, deleteCookie } from "./CookieFunctions.js";
 
-import  {getFileList} from "./RequestFunctions.js";
+
 
 
 
@@ -33,17 +33,15 @@ export async function getMockFileList(){
 
 
 
-
 export function performTests(){
   
     const testButton = document.querySelector("#testBtn");
     const testButton2 = document.querySelector("#testBtn2");
-    changeButtonText(testButton, "Clear user token");
+    changeButtonText(testButton, "Test modal");
     changeButtonText(testButton2, "Set session token - bigos");
 
     onClick(testButton, async () => {
-      const testResponse = await clearUserToken();
-      console.log(testResponse); 
+      showLoginModal();
     });
       onClick(testButton2, async () => {
  // const test_response = await verifyUserByPassword("bisssgos","Budwajzer@13");
@@ -51,7 +49,7 @@ export function performTests(){
 const test_response= await setSessionToken(14,"bigos");
 //const test_response= await POSTJSONRequest({request: "set_user_token",name:"bigos", token:"supertoken1234"});
       console.log(test_response);
-
+       
     }); 
 
 

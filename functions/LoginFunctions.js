@@ -1,7 +1,7 @@
-import { showLoggedOnly, hideUnloggedOnly, showUnloggedOnly, hideLoggedOnly } from "./PageAppearance.js"; 
+import { showLoggedOnly, hideUnloggedOnly, showUnloggedOnly, hideLoggedOnly, newHideModal } from "./PageAppearance.js"; 
 import { hideModal, displayLoggedUser } from "./PageAppearance.js"; 
 import {verifyUserByPassword, checkIfTokenExist}from "./CoreFunctions.js";
-import {setUserToken, verifySession} from "./RequestFunctions.js";
+import {setUserToken, verifySession, clearUserToken} from "./RequestFunctions.js";
 import  {setCookie, deleteCookie} from "./CookieFunctions.js";
 
 
@@ -35,7 +35,9 @@ export async function handleLogIn(){
     showLoggedOnly();
     displayLoggedUser();
     hideUnloggedOnly();
-    hideModal("my_modal");
+    console.log("DEB635 befor hide");
+    newHideModal("my_modal");
+    console.log("DEB635 after hide");
 }
 
 export async function validateLoginAndPassFrontend(){

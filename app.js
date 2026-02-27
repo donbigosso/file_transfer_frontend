@@ -22,7 +22,7 @@ const logoutButton = document.querySelector("#logout-btn");
 
 
 onClick(loginButton, () => {
-   showLoginModal();
+ //  showLoginModal();
   });
 
   onClick(logoutButton, async() => {

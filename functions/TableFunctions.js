@@ -74,8 +74,8 @@ export function addRowToTable(fileName, fileSize, date) {
       <button class="btn btn-sm btn-success me-1" data-action="copy-link"><i class="bi bi-link-45deg"></i>
         
       </button>
-      <button class="btn btn-sm btn-warning me-1 logged-only" data-action="rename">Rename</button>
-      <button class="btn btn-sm btn-danger logged-only" data-action="delete">Delete</button>
+      <button class="btn btn-sm btn-warning me-1 logged-only" data-action="rename"><i class="bi bi-pencil"></i></button>
+      <button class="btn btn-sm btn-danger logged-only" data-action="delete"><i class="bi bi-trash"></i></button>
     </td>
   `;
 
