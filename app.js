@@ -1,8 +1,7 @@
 
 import { onClick } from "./functions/EventFunctions.js";
-import {modalClicks, showLoginModal} from "./functions/ModalFunctions.js";
 import { initializeTableSorting,  addFileListToTable, initializeTableButtons  } from "./functions/TableFunctions.js";
-import { showUnloggedOnly, hideLoggedOnly } from "./functions/PageAppearance.js";
+import { showLoginModal } from "./functions/NewModalMethods.js";
 import { getFileList } from "./functions/RequestFunctions.js";
 import { performTests } from "./functions/TestFunctions.js";
 import { handleAutoLogin, handleLogout } from "./functions/LoginFunctions.js";
@@ -22,7 +21,7 @@ const logoutButton = document.querySelector("#logout-btn");
 
 
 onClick(loginButton, () => {
- //  showLoginModal();
+  showLoginModal();
   });
 
   onClick(logoutButton, async() => {

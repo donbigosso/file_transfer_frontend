@@ -86,3 +86,25 @@ showGenericModal({
   ]
 });
 }
+// Rename
+export function showRenameModal(filename){
+  const bodyHtml = `
+    <form id="rename-form">
+      <div class="mb-3">
+        <label for="renameInput" class="form-label">New name</label>
+        <input type="text" class="form-control" id="rename-input" required value="${filename}">
+      </div>
+    </form>
+  `;
+const renameInput = document.querySelector("rename-input");
+renameInput.focus();
+showGenericModal({
+  title: "Rename file",
+  bodyHtml: bodyHtml,
+  buttons: [
+    { text: "Cancel", class: "btn-secondary", action: () => newHideModal("my-modal")},
+    { hidden: true },
+    { text: "Rename", class: "btn-primary", action: () => console.log("DEB 678 Renamer")  }
+  ] 
+});
+}

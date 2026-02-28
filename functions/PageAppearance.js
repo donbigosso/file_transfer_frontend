@@ -101,7 +101,6 @@ export async function displayLoggedUser(){
   }
   if (user) {
     // TODO: Display user information
-    console.log("DEB 123 User is logged in");
     userField.textContent = user;
   }
   else {

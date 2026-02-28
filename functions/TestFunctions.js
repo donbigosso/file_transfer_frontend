@@ -1,7 +1,7 @@
 import {  changeButtonText, showModal } from "./PageAppearance.js";
 import { setSessionToken} from "./LoginFunctions.js";
 import { onClick } from "./EventFunctions.js";
-import { showLoginModal } from "./NewModalMethods.js";
+import { showRenameModal } from "./NewModalMethods.js";
 import { clearUserToken, verifySession } from "./RequestFunctions.js";
 import { setCookie, getCookie, deleteCookie } from "./CookieFunctions.js";
 
@@ -41,7 +41,7 @@ export function performTests(){
     changeButtonText(testButton2, "Set session token - bigos");
 
     onClick(testButton, async () => {
-      showLoginModal();
+      showRenameModal("test_file.jpg");
     });
       onClick(testButton2, async () => {
  // const test_response = await verifyUserByPassword("bisssgos","Budwajzer@13");
