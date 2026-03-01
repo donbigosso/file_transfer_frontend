@@ -96,8 +96,7 @@ export function showRenameModal(filename){
       </div>
     </form>
   `;
-const renameInput = document.querySelector("rename-input");
-renameInput.focus();
+
 showGenericModal({
   title: "Rename file",
   bodyHtml: bodyHtml,
@@ -107,4 +106,8 @@ showGenericModal({
     { text: "Rename", class: "btn-primary", action: () => console.log("DEB 678 Renamer")  }
   ] 
 });
+
+const renameInput = document.getElementById("rename-input");
+renameInput.focus();
+
 }

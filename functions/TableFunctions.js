@@ -1,5 +1,6 @@
 //file table sorting
 import { downloadFileFromAPI, generateDownloadLink, generateAndCopyDownloadLink } from "./CustomFunctions.js";
+import {handleFileRename} from "./FileActionMethods.js";
 
 function sortTable(columnIndex, isNumeric = false, isDate = false) {
   const tbody = document.getElementById('file-table-body');
@@ -152,6 +153,8 @@ export function initializeTableButtons() {
     } else if (action === 'rename') {
       // handle rename
       console.log('Rename:', fileName);
+      handleFileRename(fileName);
+
     } else if (action === 'delete') {
       // handle delete - e.g., row.remove();
       console.log('Delete:', fileName);
