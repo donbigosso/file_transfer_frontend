@@ -2,9 +2,7 @@ import {  changeButtonText, showModal } from "./PageAppearance.js";
 import { setSessionToken} from "./LoginFunctions.js";
 import { onClick } from "./EventFunctions.js";
 import { showRenameModal } from "./NewModalMethods.js";
-import { clearUserToken, verifySession } from "./RequestFunctions.js";
-import { setCookie, getCookie, deleteCookie } from "./CookieFunctions.js";
-
+import {requestRenameFile} from "./RequestFunctions.js";
 
 
 
@@ -38,7 +36,7 @@ export function performTests(){
     const testButton = document.querySelector("#testBtn");
     const testButton2 = document.querySelector("#testBtn2");
     changeButtonText(testButton, "Test modal");
-    changeButtonText(testButton2, "Set session token - bigos");
+    changeButtonText(testButton2, "Test rename");
 
     onClick(testButton, async () => {
       showRenameModal("test_file.jpg");
@@ -46,7 +44,7 @@ export function performTests(){
       onClick(testButton2, async () => {
  // const test_response = await verifyUserByPassword("bisssgos","Budwajzer@13");
  //    const test_response= await POSTJSONRequest({request: "create_user",name:"szymon644", password:"maskarada"});
-const test_response= await setSessionToken(14,"bigos");
+const test_response= await requestRenameFile("test_file.jpg", "test_file2.jpg", "bigos");
 //const test_response= await POSTJSONRequest({request: "set_user_token",name:"bigos", token:"supertoken1234"});
       console.log(test_response);
        

@@ -152,7 +152,6 @@ export function initializeTableButtons() {
       downloadFileFromAPI(fileName);
     } else if (action === 'rename') {
       // handle rename
-      console.log('Rename:', fileName);
       handleFileRename(fileName);
 
     } else if (action === 'delete') {

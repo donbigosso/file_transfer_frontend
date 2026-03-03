@@ -1,5 +1,6 @@
 import { handleLogIn } from "./LoginFunctions.js";
 import { newHideModal } from "./PageAppearance.js";
+import { executeFileRename } from "./FileActionMethods.js";
 
 const modal = {
   element: document.getElementById('my_modal'),
@@ -51,14 +52,17 @@ export function showGenericModal(config) {
       btn.textContent = btnCfg.text || 'Button';
       btn.className = btn.className.replace(/btn-\w+/, '') + ' ' + (btnCfg.class || 'btn-secondary');
       if (btnCfg.action) {
-        btn.addEventListener('click', btnCfg.action, {once: true});
+        btn.addEventListener('click', btnCfg.action);  // btn.addEventListener('click', btnCfg.action, {once: true});  - this was original; it allows only one click
       }
     });
   }
 
   // show
-  const bsModal = new bootstrap.Modal(modal.element);
-  bsModal.show();
+  const bsModal = new bootstrap.Modal(modal.element, {
+  backdrop: 'static',    // clicking backdrop (outside) does NOTHING
+  keyboard: false        // optional: also disable Esc key
+});
+ bsModal.show();
 }
 
 //usage
@@ -91,7 +95,7 @@ export function showRenameModal(filename){
   const bodyHtml = `
     <form id="rename-form">
       <div class="mb-3">
-        <label for="renameInput" class="form-label">New name</label>
+        <label for="rename-input" class="form-label">New name</label>
         <input type="text" class="form-control" id="rename-input" required value="${filename}">
       </div>
     </form>
@@ -103,7 +107,7 @@ showGenericModal({
   buttons: [
     { text: "Cancel", class: "btn-secondary", action: () => newHideModal("my-modal")},
     { hidden: true },
-    { text: "Rename", class: "btn-primary", action: () => console.log("DEB 678 Renamer")  }
+    { text: "Rename", class: "btn-primary", action: () => {executeFileRename(filename); } }
   ] 
 });
 

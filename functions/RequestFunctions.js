@@ -79,3 +79,8 @@ export async function verifySession() {
     const serverResponse = await POSTJSONRequest({request: "get_user_by_token", token: sessionCookie});
     return serverResponse.data.user_found;
 }
+
+export async function requestRenameFile(oldFilename, newFilename, sessionToken){
+    const serverResponse = await POSTJSONRequest({request: "rename_file", old_filename: oldFilename, new_filename: newFilename, token: sessionToken});
+    return serverResponse;
+}

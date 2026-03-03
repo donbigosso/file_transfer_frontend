@@ -5,14 +5,18 @@ import { showLoginModal } from "./functions/NewModalMethods.js";
 import { getFileList } from "./functions/RequestFunctions.js";
 import { performTests } from "./functions/TestFunctions.js";
 import { handleAutoLogin, handleLogout } from "./functions/LoginFunctions.js";
-import {deleteCookie} from "./functions/CookieFunctions.js";
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
+
+document.addEventListener('DOMContentLoaded', () => {   
 
 (async () => {
   addFileListToTable(await getFileList());
+  handleAutoLogin();
+initializeTableSorting();
+initializeTableButtons();
+performTests();
 })()
 
 const loginButton = document.querySelector("#login-btn");
@@ -31,10 +35,6 @@ onClick(loginButton, () => {
 
 
 
-initializeTableSorting();
-initializeTableButtons();
-performTests();
-handleAutoLogin();
 
 
 
