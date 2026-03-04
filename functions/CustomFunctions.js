@@ -1,7 +1,5 @@
-import { hide, show, showLoggedOnly, hideUnloggedOnly } from "./PageAppearance.js"; 
-import { hideModal } from "./PageAppearance.js"; 
 import { getSetting, downloadFile } from "./CoreFunctions.js";   
-
+import { getCookie } from "./CookieFunctions.js";
 
 
 export async function generateDownloadLink(filename){
@@ -42,4 +40,8 @@ export async function generateAndCopyDownloadLink(filename){
         await copyToClipboard(link);
         
     }
+}
+
+export function getSessionToken(){
+    return getCookie("session_token");
 }

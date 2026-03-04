@@ -1,5 +1,6 @@
 import { showRenameModal } from "./NewModalMethods.js";
-import { verifySession } from "./RequestFunctions.js";
+import { verifySession, requestRenameFile } from "./RequestFunctions.js";
+import { getSessionToken } from "./CustomFunctions.js";
 export async function handleFileRename(fileName){
    
     const sessionTest = await verifySession();
@@ -25,5 +26,7 @@ export async function executeFileRename(fileName){
         errorField.style.display = "block";
         return;
     }
-    console.log("DEB714, rename regEx result: ", newFilenameValid);
+    const sessionToken = getSessionToken();
+    const renameRequestResult = await requestRenameFile(fileName, newName, sessionToken);
+    console.log("DEB714, rename request result: ", renameRequestResult);
 }
