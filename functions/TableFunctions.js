@@ -62,7 +62,8 @@ document.querySelectorAll('thead th').forEach((th, index) => {
 export function addRowToTable(fileName, fileSize, date) {
   const tableBody = document.getElementById('file-table-body');
   const newRow = document.createElement('tr');
-
+  //for name adjustment function after rename
+newRow.dataset.filename = fileName;
   const nextRowNumber = tableBody.querySelectorAll('tr').length + 1;
 
   newRow.innerHTML = `

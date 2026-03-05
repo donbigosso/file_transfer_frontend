@@ -1,6 +1,7 @@
-import { showRenameModal } from "./NewModalMethods.js";
+import { showRenameModal} from "./NewModalMethods.js";
 import { verifySession, requestRenameFile } from "./RequestFunctions.js";
 import { getSessionToken } from "./CustomFunctions.js";
+import { newHideModal } from "./PageAppearance.js";
 export async function handleFileRename(fileName){
    
     const sessionTest = await verifySession();
@@ -27,6 +28,23 @@ export async function executeFileRename(fileName){
         return;
     }
     const sessionToken = getSessionToken();
-    const renameRequestResult = await requestRenameFile(fileName, newName, sessionToken);
+    const renameRequestResponse = await requestRenameFile(fileName, newName, sessionToken);
+    const renameRequestResult = renameRequestResponse.data.rename_output.renamed;
+
     console.log("DEB714, rename request result: ", renameRequestResult);
+    if(renameRequestResult){
+        newHideModal("my_modal");
+        //adjust the name in file table
+        const fileRow = document.querySelector(`tr[data-filename="${fileName}"]`);
+        if(fileRow){
+            const fileNameCell = fileRow.cells[1];
+            fileNameCell.textContent = newName;
+        }
+        return;
+    }
+    const filerenameError = renameRequestResponse.data.rename_output.error;
+    errorField.textContent = filerenameError;
+    errorField.style.display = "block";
+    console.log("DEB715, rename request error: ", filerenameError);
+    return;
 }
