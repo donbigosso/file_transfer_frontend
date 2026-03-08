@@ -1,6 +1,7 @@
 //file table sorting
-import { downloadFileFromAPI, generateDownloadLink, generateAndCopyDownloadLink } from "./CustomFunctions.js";
-import {handleFileRename} from "./FileActionMethods.js";
+import { downloadFileFromAPI, showCopiedLinkFeedback, generateAndCopyDownloadLink } from "./CustomFunctions.js";
+import {handleFileRename, handleDeleteFile} from "./FileActionMethods.js";
+
 
 function sortTable(columnIndex, isNumeric = false, isDate = false) {
   const tbody = document.getElementById('file-table-body');
@@ -158,12 +159,16 @@ export function initializeTableButtons() {
     } else if (action === 'delete') {
       // handle delete - e.g., row.remove();
       console.log('Delete:', fileName);
-      row.remove();
+      handleDeleteFile(fileName);
+      const deleteResponse = true; //this will come from external function basing on serer response
+      if(deleteResponse){
+        row.remove();
+    }
     }
     else if (action === 'copy-link') {
       // handle copy link
       const button = e.target.closest('button');
-      const feedback = button.querySelector('.copied-feedback');
+     
 
   generateAndCopyDownloadLink(fileName);
 
@@ -174,13 +179,3 @@ export function initializeTableButtons() {
 
 }
 
-function showCopiedLinkFeedback() {
-  const feedbackElement = document.getElementById('global-copy-feedback');
-  feedbackElement.classList.remove('opacity-0');
-  feedbackElement.classList.add('opacity-100');
-
-  setTimeout(() => {
-    feedbackElement.classList.remove('opacity-100');
-    feedbackElement.classList.add('opacity-0');
-  }, 1500);
-}

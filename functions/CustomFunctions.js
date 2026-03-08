@@ -45,3 +45,24 @@ export async function generateAndCopyDownloadLink(filename){
 export function getSessionToken(){
     return getCookie("session_token");
 }
+
+function showFeedback(text) {
+  const feedbackElement = document.getElementById('global-feedback');
+  feedbackElement.innerText = text;
+  feedbackElement.classList.remove('opacity-0');
+  feedbackElement.classList.add('opacity-100');
+
+  setTimeout(() => {
+    feedbackElement.classList.remove('opacity-100');
+    feedbackElement.classList.add('opacity-0');
+  }, 1500);
+}
+
+
+export function showCopiedLinkFeedback() {
+    
+ showFeedback("Link copied to clipboard");
+}
+export function showRenameFeedback(){
+    showFeedback("File successfully renamed");
+}

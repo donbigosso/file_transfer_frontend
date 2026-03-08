@@ -115,3 +115,17 @@ const renameInput = document.getElementById("rename-input");
 renameInput.focus();
 
 }
+
+export function showDeleteModal(filename){
+  const bodyText = "Are you sure you want to delete "+filename+"?";
+  showGenericModal({
+    title: "Delete file",
+    bodyText: bodyText,
+    buttons:[
+         { text: "Cancel", class: "btn-secondary", action: () => newHideModal("my-modal")},
+    { hidden: true },
+    { text: "Delete", class: "btn-danger", action: () => {console.log("Debug 912 ", filename); } }
+    ]
+
+  });
+}

@@ -98,7 +98,7 @@ button .bi svg {
     pointer-events: none;
 }
 
-.copied-feedback {
+#global-feedback {
   transition: opacity 0.4s ease;
   pointer-events: none;
   font-size: 0.8rem;
