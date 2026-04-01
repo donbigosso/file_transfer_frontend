@@ -80,3 +80,12 @@ export async function requestRenameFile(oldFilename, newFilename, sessionToken){
     const serverResponse = await POSTJSONRequest({request: "rename_file", old_filename: oldFilename, new_filename: newFilename, token: sessionToken});
     return serverResponse;
 }
+
+export async function requestDeleteFile(filename, sessionToken){
+    const serverResponse = await POSTJSONRequest({request: "delete_file", file_to_delete: filename, token: sessionToken});
+    return serverResponse;
+}
+
+export  async function uploadFiles(files) {
+    
+}

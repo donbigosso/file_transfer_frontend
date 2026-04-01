@@ -66,3 +66,7 @@ export function showCopiedLinkFeedback() {
 export function showRenameFeedback(){
     showFeedback("File successfully renamed");
 }
+
+export function showDeleteFeedback(){
+    showFeedback("File successfully deleted");
+}

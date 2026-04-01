@@ -1,7 +1,7 @@
 import {  changeButtonText, showModal } from "./PageAppearance.js";
 import { onClick } from "./EventFunctions.js";
 import { showDeleteModal } from "./NewModalMethods.js";
-import {requestRenameFile} from "./RequestFunctions.js";
+import {requestDeleteFile} from "./RequestFunctions.js";
 import {POSTJSONRequest} from "./CoreFunctions.js";
 
 
@@ -43,7 +43,7 @@ export function performTests(){
       onClick(testButton2, async () => {
  // const test_response = await verifyUserByPassword("bisssgos","Budwajzer@13");
  //    const test_response= await POSTJSONRequest({request: "create_user",name:"szymon644", password:"maskarada"});
-const test_response= await POSTJSONRequest  ({request: "delete_file",file_to_delete:"4Renamed_file1.txt", token:"supertoken1234"});
+const test_response= await requestDeleteFile("	sddefault.jpg", "supertoken1234");
 //const test_response= await POSTJSONRequest({request: "set_user_token",name:"bigos", token:"supertoken1234"});
       console.log(test_response);
        

@@ -5,6 +5,7 @@ import { showLoginModal } from "./functions/NewModalMethods.js";
 import { getFileList } from "./functions/RequestFunctions.js";
 import { performTests } from "./functions/TestFunctions.js";
 import { handleAutoLogin, handleLogout } from "./functions/LoginFunctions.js";
+import {uploadFile} from "./functions/UploadFunctions.js";
 
 
 

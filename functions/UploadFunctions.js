@@ -13,6 +13,11 @@ const uploadForm = document.getElementById("upload-form");
 export function uploadFile(e) {
     e.preventDefault();
    const amountVerif = verifyFileAmount();
+   if(amountVerif){
+    const fileList = returnFileList();
+    // TODO: Implement file upload logic here
+    console.log("DEB987 Uploading files:", fileList);
+   }
     
 }
 

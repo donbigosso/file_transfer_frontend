@@ -1,6 +1,6 @@
 import { handleLogIn } from "./LoginFunctions.js";
 import { newHideModal } from "./PageAppearance.js";
-import { executeFileRename } from "./FileActionMethods.js";
+import { executeFileRename, executeFileDelete } from "./FileActionMethods.js";
 
 const modal = {
   element: document.getElementById('my_modal'),
@@ -124,7 +124,7 @@ export function showDeleteModal(filename){
     buttons:[
          { text: "Cancel", class: "btn-secondary", action: () => newHideModal("my-modal")},
     { hidden: true },
-    { text: "Delete", class: "btn-danger", action: () => {console.log("Debug 912 ", filename); } }
+    { text: "Delete", class: "btn-danger", action: () => {executeFileDelete(filename);   } }
     ]
 
   });

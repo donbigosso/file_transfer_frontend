@@ -160,10 +160,10 @@ export function initializeTableButtons() {
       // handle delete - e.g., row.remove();
       console.log('Delete:', fileName);
       handleDeleteFile(fileName);
-      const deleteResponse = true; //this will come from external function basing on serer response
+    /*  const deleteResponse = true; //this will come from external function basing on serer response
       if(deleteResponse){
         row.remove();
-    }
+    }*/
     }
     else if (action === 'copy-link') {
       // handle copy link

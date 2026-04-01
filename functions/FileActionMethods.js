@@ -1,6 +1,6 @@
 import { showRenameModal, showDeleteModal} from "./NewModalMethods.js";
-import { verifySession, requestRenameFile } from "./RequestFunctions.js";
-import { getSessionToken, showRenameFeedback } from "./CustomFunctions.js";
+import { verifySession, requestRenameFile, requestDeleteFile } from "./RequestFunctions.js";
+import { getSessionToken, showRenameFeedback, showDeleteFeedback } from "./CustomFunctions.js";
 import { newHideModal } from "./PageAppearance.js";
 export async function handleFileRename(filename){
    
@@ -58,5 +58,25 @@ export async function executeFileRename(filename){
     errorField.textContent = filerenameError;
     errorField.style.display = "block";
     console.log("DEB715, rename request error: ", filerenameError);
+    return;
+}
+
+export async function executeFileDelete(filename){
+    const sessionToken = getSessionToken();
+    const deleteRequestResponse = await requestDeleteFile(filename, sessionToken);
+    const deleteRequestResult = deleteRequestResponse.data.delete_output.deleted;
+    if(deleteRequestResult){
+        newHideModal("my_modal");
+        //remove the row from the table
+        const fileRow = document.querySelector(`tr[data-filename="${filename}"]`);
+        if(fileRow){
+            fileRow.remove();
+            showDeleteFeedback();
+            
+        }
+        return;
+    }
+    const filedeleteError = deleteRequestResponse.data.delete_output.error;
+    console.log("DEB717, delete request error: ", filedeleteError); 
     return;
 }
