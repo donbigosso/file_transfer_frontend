@@ -74,7 +74,7 @@ th:hover .sort-icon {
     display: none;
 }
 
-#selected-file-list {
+#upload-success-line {
   display: none;   
 }
 /* Optional: active sort indicator (you can toggle these classes with JS later) */

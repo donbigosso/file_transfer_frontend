@@ -1,6 +1,7 @@
-import { show, hide, changeInnerTextContent} from "./PageAppearance.js";    
+import { show, hide, changeInnerTextContent} from "./PageAppearance.js";
+import { getSetting } from "./CoreFunctions.js";
 const uploadAlertField = document.getElementById('upload-alert-field');
-const selectedList = document.getElementById('selected-file-list');
+const uploadSuccessLine = document.getElementById('upload-success-line');
 const fileInput = document.getElementById("file-upload");
 const uploadForm = document.getElementById("upload-form");
     
@@ -10,13 +11,42 @@ const uploadForm = document.getElementById("upload-form");
 
     }
 
-export function uploadFile(e) {
+export async function uploadFile(e) {
     e.preventDefault();
    const amountVerif = verifyFileAmount();
    if(amountVerif){
     const fileList = returnFileList();
     // TODO: Implement file upload logic here
-    console.log("DEB987 Uploading files:", fileList);
+     const formData = new FormData();
+     for (let file of fileList) {
+        
+        formData.append("files[]", file);
+        console.log("DEB987 Uploading files:", formData); // formData shows empty object
+     }
+     try {
+        const uploadAddress =await getSetting("upload_address");
+        const response = await fetch(uploadAddress, {
+            method: "POST",
+            body: formData
+            // DO NOT set Content-Type — browser sets it with boundary automatically
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Server response:", result);
+
+        // Example: show success
+        show(uploadAlertField, 'block');
+        changeInnerTextContent(uploadAlertField, result.message || "Files uploaded!");
+
+    } catch (err) {
+        console.error(err);
+        show(uploadAlertField, 'block');
+        changeInnerTextContent(uploadAlertField, "Upload failed: " + err.message);
+    }
    }
     
 }
@@ -28,7 +58,7 @@ function returnFileList(){
 }
 function hideAlertsAndList(){
     hide(uploadAlertField);
-    hide(selectedList);
+    hide(uploadSuccessLine);
     
 }
 
@@ -37,8 +67,7 @@ function showFileList(){
     if(verifyFileAmount()){
         const fileList = returnFileList();
         const listLength = fileList.length;
-       
-        show(selectedList, 'block');
+      
         
         const listText ='';
         const nameArray = [];
@@ -46,8 +75,9 @@ function showFileList(){
             nameArray.push(fileList[i].name);
         }
         const stringList = nameArray.join(', ');
-            
-        changeInnerTextContent(selectedList, "Following files were selected: " + stringList+".");
+        showUploadSuccess("Following files were selected: " + stringList+".");   
+        
+        //"Following files were selected: " + stringList+"."
 
     }
     console.log("DEB543 show file list");
@@ -59,8 +89,7 @@ function verifyFileAmount(){
     const listLength = fileList.length;
     if(listLength === 0){
         console.warn("WRN231 No files were selected.");
-        show(uploadAlertField, 'block');
-        changeInnerTextContent(uploadAlertField,"No files selected. Please select at least one file");
+        showUploadAlert("No files selected. Please select at least one file");
         return false;
     }
     if(listLength > 5){
@@ -74,4 +103,14 @@ function verifyFileAmount(){
     hideAlertsAndList();
     return true;
 
+}
+
+function showUploadAlert(message){
+    show(uploadAlertField, 'block');
+    changeInnerTextContent(uploadAlertField, message);
+}
+
+function showUploadSuccess(message){
+    show(uploadSuccessLine, 'block');
+    changeInnerTextContent(uploadSuccessLine, message);
 }
