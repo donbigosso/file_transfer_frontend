@@ -1,5 +1,6 @@
 import { show, hide, changeInnerTextContent} from "./PageAppearance.js";
 import { getSetting } from "./CoreFunctions.js";
+import { getSessionToken } from "./CustomFunctions.js"; 
 const uploadAlertField = document.getElementById('upload-alert-field');
 const uploadSuccessLine = document.getElementById('upload-success-line');
 const fileInput = document.getElementById("file-upload");
@@ -11,7 +12,7 @@ const uploadForm = document.getElementById("upload-form");
 
     }
 
-export async function uploadFile(e) {
+export async function uploadFileBKP(e) {
     e.preventDefault();
    const amountVerif = verifyFileAmount();
    if(amountVerif){
@@ -21,6 +22,7 @@ export async function uploadFile(e) {
      for (let file of fileList) {
         
         formData.append("files[]", file);
+       
         console.log("DEB987 Uploading files:", formData); // formData shows empty object
      }
      try {
@@ -41,6 +43,53 @@ export async function uploadFile(e) {
         // Example: show success
         show(uploadAlertField, 'block');
         changeInnerTextContent(uploadAlertField, result.message || "Files uploaded!");
+
+    } catch (err) {
+        console.error(err);
+        show(uploadAlertField, 'block');
+        changeInnerTextContent(uploadAlertField, "Upload failed: " + err.message);
+    }
+   }
+    
+}
+
+export async function uploadFile(e) {
+    e.preventDefault();
+   const amountVerif = verifyFileAmount();
+   if(amountVerif){
+    const fileList = returnFileList();
+    // TODO: Implement file upload logic here
+     const formData = new FormData();
+       formData.append("request","upload_files");
+        formData.append("token",getSessionToken());
+     for (let file of fileList) {
+        
+        formData.append("files[]", file);
+       
+        console.log("DEB987 Uploading files:", formData); // formData shows empty object
+     }
+     try {
+        const uploadAddress =await getSetting("api_address");
+        const response = await fetch(uploadAddress, {
+            method: "POST",
+            body: formData
+            // DO NOT set Content-Type — browser sets it with boundary automatically
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Server response:", result);
+
+        // Example: show success
+        if(result.message){
+            showUploadSuccess(result.message);
+        }
+       if(result.error){
+            showUploadAlert(result.error);
+       }
 
     } catch (err) {
         console.error(err);
