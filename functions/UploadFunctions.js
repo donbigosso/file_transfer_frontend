@@ -1,11 +1,11 @@
-import { show, hide, changeInnerTextContent} from "./PageAppearance.js";
+import { show, hide, changeInnerTextContent, changeInnerHTML } from "./PageAppearance.js";
 import { getSetting } from "./CoreFunctions.js";
 import { getSessionToken } from "./CustomFunctions.js"; 
 const uploadAlertField = document.getElementById('upload-alert-field');
 const uploadSuccessLine = document.getElementById('upload-success-line');
 const fileInput = document.getElementById("file-upload");
 const uploadForm = document.getElementById("upload-form");
-    
+   
     if (uploadForm) {
         uploadForm.addEventListener("submit", uploadFile);
         fileInput.addEventListener("change",showFileList);
@@ -25,7 +25,9 @@ export async function uploadFileBKP(e) {
        
         console.log("DEB987 Uploading files:", formData); // formData shows empty object
      }
+     
      try {
+        
         const uploadAddress =await getSetting("upload_address");
         const response = await fetch(uploadAddress, {
             method: "POST",
@@ -36,7 +38,7 @@ export async function uploadFileBKP(e) {
         if (!response.ok) {
             throw new Error(`Server error: ${response.status}`);
         }
-
+        
         const result = await response.json();
         console.log("Server response:", result);
 
@@ -66,9 +68,11 @@ export async function uploadFile(e) {
         
         formData.append("files[]", file);
        
-        console.log("DEB987 Uploading files:", formData); // formData shows empty object
+      
      }
+     showLoadingSpinner(); 
      try {
+        
         const uploadAddress =await getSetting("api_address");
         const response = await fetch(uploadAddress, {
             method: "POST",
@@ -83,10 +87,8 @@ export async function uploadFile(e) {
         const result = await response.json();
         console.log("Server response:", result);
 
-        // Example: show success
-        if(result.message){
-            showUploadSuccess(result.message);
-        }
+ 
+       showUploadSuccess(result.message || "");
        if(result.error){
             showUploadAlert(result.error);
        }
@@ -152,6 +154,14 @@ function verifyFileAmount(){
     hideAlertsAndList();
     return true;
 
+}
+
+function showLoadingSpinner(){
+    show(uploadSuccessLine,'block');
+    changeInnerHTML(uploadSuccessLine, '<div class="d-flex align-items-center gap-2">'+
+        '<div class="spinner-border spinner-border-sm" role="status"></div>'+
+        '<span>Uploading...</span>'+
+      '</div>    ');
 }
 
 function showUploadAlert(message){

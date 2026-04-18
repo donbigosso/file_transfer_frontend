@@ -96,6 +96,12 @@ export function changeInnerTextContent(element, textContent) {
     }
 }
 
+export function changeInnerHTML(element, htmlContent) {
+  if (checkHTMLInstance(element)) {
+    element.innerHTML = htmlContent;
+    }
+}
+
 export async function displayLoggedUser(){
   const user =await verifySession();
   const userField = document.getElementById("user-field");
